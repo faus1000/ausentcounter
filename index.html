@@ -1,0 +1,375 @@
+<link href="style.css" rel="stylesheet" />
+<script src="main.js"></script>
+
+<body>
+
+    <div id="container" class="zoomable">
+        <div id="SubContainer">
+            <div id="upContainer">
+
+                <div id="row8" class="eColum">
+                    
+                </div>
+                <div id="row6" class="eColum">
+
+                </div>
+                <div id="row4" class="eColum">
+
+                </div>
+                <div id="row2" class="eColum">
+
+                </div>
+                <div id="row0" class="eColum">
+
+                </div>
+
+
+            </div>
+
+            <!-- <hr > -->
+            <div id="Separator"></div>
+
+            <div id="downContainer">
+                <div id="row1" class="oColum">
+
+                </div>
+                <div id="row3" class="oColum">
+
+                </div>
+                <div id="row5" class="oColum">
+
+                </div>
+                <div id="row7" class="oColum">
+
+                </div>
+                <div id="row9" class="oColum">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //var out = document.getElementById("out");
+        var out = document.body;
+        var c = 0;
+
+        var symbol = "R_100";
+        var decimals = 2;
+
+        var arr1 = [];
+        var arr2 = [];
+        arr2[0] = 0;
+        var listC = [];
+
+        var eCounter = 0;
+        var oCounter = 0;
+
+        var co0 = 0;
+        var co1 = 0;
+        var co2 = 0;
+        var co3 = 0;
+        var co4 = 0;
+        var co5 = 0;
+        var co6 = 0;
+        var co7 = 0;
+        var co8 = 0;
+        var co9 = 0;
+
+        var ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
+
+        ws.onopen = function (evt) {
+            ws.send(JSON.stringify({ ticks: symbol }));
+        };
+        var contador = 0;
+        var AusData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        var RedBase = 54;
+        var GreenBase = 174;
+        var AzulBase = 255;
+        var Red = [RedBase, RedBase, RedBase, RedBase, RedBase, RedBase, RedBase, RedBase, RedBase,RedBase];
+        var Gren = [GreenBase,GreenBase,GreenBase, GreenBase, GreenBase, GreenBase,GreenBase, GreenBase, GreenBase, GreenBase];
+        var Azul = [AzulBase, AzulBase, AzulBase, AzulBase, AzulBase, AzulBase, AzulBase, AzulBase, AzulBase, AzulBase];
+        //var redDk = 2;
+        //var grenDk = 4;
+        var redDk = 4;
+        var grenDk = 5;
+        var dark = 5;
+
+
+        ws.onmessage = function (msg) {
+            var data = JSON.parse(msg.data);
+            var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
+
+            var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+
+            if (digit == 8) {
+                Red[8]= RedBase;
+                Gren[8]= GreenBase;
+                Azul[8]= AzulBase;
+                co8 = 0;
+            } else {
+                co8++;
+                 AusData[8] = co8;
+                 Red[8] -=redDk;
+                 Gren[8] -=grenDk;
+                 Azul[8] -= dark;
+
+            }
+            if (digit == 6) {
+                Azul[6]= AzulBase;
+                Red[6]= RedBase;
+               Gren[6]= GreenBase;
+                co6 = 0;
+            } else {
+                co6++; 
+                AusData[6] = co6;
+                Red[6] -=redDk;
+                 Gren[6] -=grenDk;
+                Azul[6] -= dark;
+            }
+            if (digit == 4) {
+                Azul[4]= AzulBase;
+                Red[4]= RedBase;
+               Gren[4]= GreenBase;
+                co4 = 0;
+            } else {
+                co4++;  
+                AusData[4] = co4;
+                Red[4] -=redDk;
+                 Gren[4] -=grenDk;
+                Azul[4] -=dark;
+            }
+            if (digit == 2) {
+                Azul[2]= AzulBase;
+                Red[2]= RedBase;
+               Gren[2]= GreenBase;
+                co2 = 0;
+            } else {
+                co2++; 
+                 AusData[2] = co2;
+                 Red[2] -=redDk;
+                 Gren[2] -=grenDk;
+                 Azul[2] -=dark;
+            }
+            if (digit == 0) {
+                Azul[0]= AzulBase;
+                Red[0]= RedBase;
+               Gren[0]= GreenBase;
+                co0 = 0;
+            } else {
+                co0++; 
+                AusData[0] = co0;
+                Red[0] -=redDk;
+                 Gren[0] -=grenDk;
+                Azul[0] -=dark;
+            }
+            if (digit == 1) {
+                Azul[1]= AzulBase;
+                Red[1]= RedBase;
+               Gren[1]= GreenBase;
+                co1 = 0;
+            } else {
+                co1++;
+                 AusData[1] = co1;
+                 Red[1] -=redDk;
+                 Gren[1] -=grenDk;
+                 Azul[1] -=dark;
+            }
+            if (digit == 3) {
+                Azul[3]= AzulBase;
+                Red[3]= RedBase;
+               Gren[3]= GreenBase;
+                co3 = 0;
+            } else {
+                co3++; 
+                AusData[3] = co3;
+                Red[3] -=redDk;
+                 Gren[3] -=grenDk;
+                Azul[3] -=dark;
+            }
+            if (digit == 5) {
+                Azul[5]= AzulBase;
+                Red[5]= RedBase;
+               Gren[5]= GreenBase;
+                co5 = 0;
+            } else {
+                co5++; 
+                AusData[5] = co5;
+                Red[5] -=redDk;
+                 Gren[5] -=grenDk;
+                Azul[5] -=dark;
+            }
+            if (digit == 7) {
+                Azul[7]= AzulBase;
+                Red[7]= RedBase;
+               Gren[7]= GreenBase;
+                co7 = 0;
+            } else {
+                co7++; 
+                 AusData[7] = co7;
+                 Red[7] -=redDk;
+                 Gren[7] -=grenDk;
+                 Azul[7] -=dark;
+            }
+            if (digit == 9) {
+                Azul[9]=AzulBase;
+                Red[9]= RedBase;
+               Gren[9]= GreenBase;
+                co9 = 0;
+
+            } else {
+                co9++;
+                 AusData[9] = co9;
+                 Red[9] -=redDk;
+                 Gren[9] -=grenDk;
+                 Azul[9] -= dark;
+            }
+
+
+
+            //  console.log(digit); 
+            if (digit == 8) {
+                AddEven("row8", digit, contador, AusData[digit]);
+                // AusData[8] = 0;
+            } else {
+                AddSpace("row8", AusData[8],Red[8],Gren[8],Azul[8]);
+            }
+            if (digit == 6) {
+                AddEven("row6", digit, contador, AusData[digit]);
+                // AusData[6] = 0;
+            } else {
+                AddSpace("row6", AusData[6],Red[6],Gren[6],Azul[6]);
+            }
+            if (digit == 4) {
+                AddEven("row4", digit, contador, AusData[digit]);
+                // AusData[4] = 0;
+            } else {
+                AddSpace("row4", AusData[4],Red[4],Gren[4],Azul[4]);
+            }
+            if (digit == 2) {
+                AddEven("row2", digit, contador, AusData[digit]);
+                // AusData[2] = 0;
+            } else {
+                AddSpace("row2", AusData[2],Red[2],Gren[2],Azul[2]);
+
+            }
+            if (digit == 0) {
+                // console.log("Insertar en row" + digit);
+                AddEven("row0", digit, contador, AusData[digit]);
+                // AusData[0] = 0;
+            } else {
+                AddSpace("row0", AusData[0],Red[0],Gren[0],Azul[0]);
+            }
+            if (digit == 1) {
+                AddOdd("row1", digit, contador, AusData[digit]);
+                // AusData[1] = 0;
+            } else {
+                AddSpace("row1", AusData[1],Red[1],Gren[1],Azul[1]);
+            }
+            if (digit == 3) {
+                AddOdd("row3", digit, contador, AusData[digit]);
+                //AusData[3] = 0;
+            } else {
+                AddSpace("row3", AusData[3],Red[3],Gren[3],Azul[3]);
+            }
+            if (digit == 5) {
+                AddOdd("row5", digit, contador, AusData[digit]);
+                //AusData[5] = 0;
+            } else {
+                AddSpace("row5", AusData[5],Red[5],Gren[5],Azul[5]);
+            }
+            if (digit == 7) {
+                AddOdd("row7", digit, contador, AusData[digit]);
+                // AusData[7] = 0;
+            } else {
+                AddSpace("row7", AusData[7],Red[7],Gren[7],Azul[7]);
+            }
+            if (digit == 9) {
+                AddOdd("row9", digit, contador, AusData[digit]);
+                //AusData[9] = 0;
+            } else {
+                AddSpace("row9", AusData[9],Red[9],Gren[9],Azul[9]);
+            }
+
+            function AddSpace(id, AusCounter,rd,gn,az) {
+                var spaces = document.createElement("div");
+                spaces.setAttribute("class", "spaceBox");
+                var fondo = `rgb(${rd}, ${gn}, ${az})`;
+                spaces.style.backgroundColor = fondo;
+                var evenDigit = document.createElement("span")
+                evenDigit.setAttribute("id", "even" + contador);
+                var Ndigit = document.createTextNode(AusCounter);
+
+                evenDigit.appendChild(Ndigit);
+                spaces.appendChild(evenDigit);
+
+                var targettRow = document.getElementById(id);
+                targettRow.appendChild(spaces);
+            }
+            function AddEven(id, digito, contador, AusCounter) {
+                var divContorn = document.createElement("div");
+                divContorn.setAttribute("class", "evenContorn");
+                var evenDigit = document.createElement("span")
+                evenDigit.setAttribute("id", "even" + contador);
+                evenDigit.setAttribute("class", "evenDigit");
+
+                var Edigit = document.createTextNode(digito);
+                var targetRow = document.getElementById(id);
+
+                evenDigit.appendChild(Edigit);
+                divContorn.appendChild(evenDigit);
+                targetRow.appendChild(divContorn);
+
+            }
+
+            function AddOdd(id, digito, contador, AusCounter) {
+                var divContorn = document.createElement("div");
+                divContorn.setAttribute("class", "oddContorn");
+                var oddDigit = document.createElement("span")
+                oddDigit.setAttribute("id", "odd" + contador);
+                oddDigit.setAttribute("class", "oddDigit");
+
+               var Odigit = document.createTextNode(digito);
+                var targetRow = document.getElementById(id);
+
+                oddDigit.appendChild(Odigit);
+                divContorn.appendChild(oddDigit);
+                targetRow.appendChild(divContorn);
+
+            }
+
+            if (isScrolledToBottom) {
+                out.scrollLeft = out.scrollWidth - out.clientWidth;
+                console.log("scroll desplazado al final");
+            } else {
+                //out.scrollLeft = out.scrollWidth - out.clientWidth;
+                console.log("Se movio el scroll del borde");
+            }
+
+
+
+        } 
+    </script>
+</body>
+
+<style>
+    body {
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+
+    #out {
+        position: absolute;
+
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* overflow-y: hidden;
+        overflow-x: scroll;
+        height: 100%;
+        width: 100%; */
+        background-color: dodgerblue;
+    }
+</style>
